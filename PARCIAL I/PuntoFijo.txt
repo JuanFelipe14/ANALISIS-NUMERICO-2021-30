@@ -1,0 +1,43 @@
+import numpy as np
+
+# Funciones
+fx = lambda x: 2 + np.sin(x) - x
+gx = lambda x: np.exp(-x)
+
+#Declaramos los intervalos
+a = 0
+b = 1
+tolera = 1e-5
+iteramax = 15  # El maximo de iteraciones
+
+def puntofijo(gx, a, tolera, iteramax=15):
+    #i es la variable que muestra el numero de iteraciones
+    i = 1
+    b = gx(a)
+    #El tramo sera el valor absoluto entre b - a
+    tramo = abs(b - a)
+
+    #Mientras el tramos sea mayor o igual a la tolerancia e i sea menor igual a iterMax
+    while (tramo >= tolera and i <= iteramax):
+        a = b
+        b = gx(a)
+        tramo = abs(b - a)
+        i = i + 1
+        print("Numero iteraciones : ", i," raiz : ", b)
+    respuesta = b
+
+    # Validamos la respuesta
+    if (i >= iteramax):
+        respuesta = np.nan
+    return (respuesta)
+
+
+respuesta = puntofijo(gx, a, tolera)
+
+# SALIDA
+
+print()
+if respuesta >= 1:
+    print("La funcion no converge!")
+else:
+    print("La funcion converge!")
